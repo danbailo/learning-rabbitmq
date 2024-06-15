@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "learning_rabbitmq"
 version = "0.1.0"
-description = "{{cookiecutter.project_description}}"
+description = "Repository dedicated to study and learning somethings about RabbitMQ."
 authors = ["Daniel Bailo <danbailoufms@gmail.com>"]
 readme = "README.md"
 

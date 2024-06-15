@@ -40,3 +40,30 @@ make install_with_pyenv
 `make check_all` - Runs all the project's "checkers" and tests signaling when everything is ok. This way, it is certain that the pull-request pipeline will be ready to go to main.
 
 All settings defined in formatting, typing, lint, etc. They are defined in the Python project configuration file - [pyproject.toml](pyproject.toml).
+
+## Docker
+
+Prepare the RabbitMQ container running this commands
+
+1. Build image
+```
+docker compose build
+```
+
+2. Then run container
+
+```
+docker compose up -d
+```
+
+## Running project
+
+To run the project, just open a terminal and run the project as a module. Example:
+
+```bash
+python -m learning_rabbitmq.samples.dead_letter_exchange.consumer
+```
+
+```bash
+python -m learning_rabbitmq.samples.dead_letter_exchange.producer
+```

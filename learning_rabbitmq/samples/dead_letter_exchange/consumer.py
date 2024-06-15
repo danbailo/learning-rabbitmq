@@ -20,7 +20,7 @@ channel = connection.channel()
 
 # declaring the exchange and queues
 channel.exchange_declare(exchange=MAIN_EXCHANGE, exchange_type='direct')
-channel.queue_declare(queue=MAIN_QUEUE, durable=True)
+channel.queue_declare(queue=MAIN_QUEUE, exclusive=True)
 channel.queue_bind(
     exchange=MAIN_EXCHANGE, queue=MAIN_QUEUE, routing_key=MAIN_ROUTING_KEY
 )
@@ -34,7 +34,7 @@ channel.queue_declare(
         'x-dead-letter-exchange': MAIN_EXCHANGE,
         'x-dead-letter-routing-key': MAIN_ROUTING_KEY,
     },
-    durable=True,
+    exclusive=True,
 )
 channel.queue_bind(
     exchange=DEAD_LETTER_EXCHANGE,
