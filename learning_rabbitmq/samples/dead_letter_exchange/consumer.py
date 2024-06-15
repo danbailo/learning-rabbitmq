@@ -14,10 +14,11 @@ from learning_rabbitmq.samples.dead_letter_exchange.settings import (
     MESSAGE_TTL,
 )
 
-# Configurações de conexão com o RabbitMQ
+# connect with rabbitmq server
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
+# declaring the exchange and queues
 channel.exchange_declare(exchange=MAIN_EXCHANGE, exchange_type='direct')
 channel.queue_declare(queue=MAIN_QUEUE, durable=True)
 channel.queue_bind(
@@ -27,6 +28,7 @@ channel.queue_bind(
 channel.exchange_declare(exchange=DEAD_LETTER_EXCHANGE, exchange_type='direct')
 channel.queue_declare(
     DEAD_LETTER_QUEUE,
+    # declare dead letter configs in args
     arguments={
         'x-message-ttl': MESSAGE_TTL,
         'x-dead-letter-exchange': MAIN_EXCHANGE,
@@ -72,7 +74,7 @@ def callback(ch, method, properties, body):
         print('message published to dead letter queue')
 
 
-# Consumindo mensagens da fila original
+# consuming messages
 channel.basic_qos(prefetch_count=1)
 channel.basic_consume(queue=MAIN_QUEUE, on_message_callback=callback)
 

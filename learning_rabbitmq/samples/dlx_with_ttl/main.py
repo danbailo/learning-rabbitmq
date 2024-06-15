@@ -53,7 +53,7 @@ def publish_message(message, delay=False):
 
 
 # Publish a message with a delay
-publish_message('Hello after 10 seconds', delay=True)
+publish_message('Hello after 30 seconds', delay=True)
 
 # Close the connection
 connection.close()
