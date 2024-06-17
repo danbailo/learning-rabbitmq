@@ -20,7 +20,14 @@ channel = connection.channel()
 
 # declaring the exchange and queues
 channel.exchange_declare(exchange=MAIN_EXCHANGE, exchange_type='direct')
-channel.queue_declare(queue=MAIN_QUEUE, exclusive=True)
+channel.queue_declare(
+    queue=MAIN_QUEUE,
+    arguments={
+        'x-dead-letter-exchange': DEAD_LETTER_EXCHANGE,
+        'x-dead-letter-routing-key': DEAD_LETTER_ROUTING_KEY,
+    },    
+    exclusive=True
+)
 channel.queue_bind(
     exchange=MAIN_EXCHANGE, queue=MAIN_QUEUE, routing_key=MAIN_ROUTING_KEY
 )
@@ -66,12 +73,12 @@ def callback(ch, method, properties, body):
         ch.basic_nack(delivery_tag=method.delivery_tag, requeue=False)
         print('message nack!')
 
-        ch.basic_publish(
-            exchange=DEAD_LETTER_EXCHANGE,
-            routing_key=DEAD_LETTER_ROUTING_KEY,
-            body=body,
-        )
-        print('message published to dead letter queue')
+        # ch.basic_publish(
+        #     exchange=DEAD_LETTER_EXCHANGE,
+        #     routing_key=DEAD_LETTER_ROUTING_KEY,
+        #     body=body,
+        # )
+        # print('message published to dead letter queue')
 
 
 # consuming messages
