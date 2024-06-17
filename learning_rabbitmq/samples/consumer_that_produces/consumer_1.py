@@ -11,10 +11,9 @@ def callback(ch, method, properties, body):
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
     # publish the message in second_queue
-    ch.basic_publish(
-        exchange='', routing_key='second_queue', body=nova_mensagem
-    )
+    ch.basic_publish(exchange='', routing_key='second_queue', body=nova_mensagem)
     print(f' [x] Consumidor 1 sent: "{nova_mensagem}"')
+
 
 # connection with rabbitmq server
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))

@@ -6,6 +6,7 @@ def callback(ch, method, properties, body):
     print(f' [x] Consumer 2 received: {message}')
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
+
 # connection with rabbitmq server
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()

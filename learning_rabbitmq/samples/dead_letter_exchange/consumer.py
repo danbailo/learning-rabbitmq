@@ -25,8 +25,8 @@ channel.queue_declare(
     arguments={
         'x-dead-letter-exchange': DEAD_LETTER_EXCHANGE,
         'x-dead-letter-routing-key': DEAD_LETTER_ROUTING_KEY,
-    },    
-    exclusive=True
+    },
+    exclusive=True,
 )
 channel.queue_bind(
     exchange=MAIN_EXCHANGE, queue=MAIN_QUEUE, routing_key=MAIN_ROUTING_KEY
